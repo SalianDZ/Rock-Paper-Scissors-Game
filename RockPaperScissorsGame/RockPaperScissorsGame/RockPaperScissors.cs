@@ -9,63 +9,88 @@ namespace RockPaperScissorsGame
             const string Paper = "Paper";
             const string Scissors = "Scissors";
 
-            Console.Write("Choose [r]ock, [p]aper, [s]cissors: ");
-            string playerMove = Console.ReadLine();
+            int scorePoints = 0;
+            int gameCounter = 0;
 
-            if (playerMove == "r" || playerMove == "rock")
-            {
-                playerMove = Rock;
-            }
-            else if (playerMove == "p" || playerMove == "paper")
-            {
-                playerMove = Paper;
-            }
-            else if (playerMove == "s" || playerMove == "scissors")
-            {
-                playerMove = Scissors;
-            }
-            else
-            {
-                Console.WriteLine("Invalid Input. Try Again...");
-                return;
-            }
+            Console.Write("How many games would you like to play with the computer?: ");
+            int gamesNumber = int.Parse(Console.ReadLine());
 
-            Random random = new Random();
-            int computerRandomNumber = random.Next(1, 4);
-
-            string computerMove = "";
-
-            switch (computerRandomNumber)
+            for (int i = 0; i < gamesNumber; i++)
             {
-                case 1:
-                    computerMove = Rock;
-                    break;
-                case 2:
-                    computerMove = Paper;
-                    break;
-                case 3: 
-                    computerMove = Scissors;
-                    break;
-            }
+                Console.Write("Choose [r]ock, [p]aper, [s]cissors: ");
+                string playerMove = Console.ReadLine();
 
-            Console.WriteLine($"The computer chose {computerMove}.");
+                if (playerMove == "r" || playerMove == "rock")
+                {
+                    playerMove = Rock;
+                }
+                else if (playerMove == "p" || playerMove == "paper")
+                {
+                    playerMove = Paper;
+                }
+                else if (playerMove == "s" || playerMove == "scissors")
+                {
+                    playerMove = Scissors;
+                }
+                else
+                {
+                    Console.WriteLine("Invalid Input. Try Again...");
+                    continue;
+                }
 
-            if ((playerMove == Rock && computerMove == Scissors) || 
-                (playerMove == Paper && computerMove == Rock) ||
-                (playerMove == Scissors && computerMove == Paper))
-            {
-                Console.WriteLine("You win!");
+                Random random = new Random();
+                int computerRandomNumber = random.Next(1, 4);
+
+                string computerMove = "";
+
+                switch (computerRandomNumber)
+                {
+                    case 1:
+                        computerMove = Rock;
+                        break;
+                    case 2:
+                        computerMove = Paper;
+                        break;
+                    case 3:
+                        computerMove = Scissors;
+                        break;
+                }
+
+                Console.WriteLine($"The computer chose {computerMove}.");
+
+                if ((playerMove == Rock && computerMove == Scissors) ||
+                    (playerMove == Paper && computerMove == Rock) ||
+                    (playerMove == Scissors && computerMove == Paper))
+                {
+                    gameCounter++;
+                    Console.WriteLine($"This is your {gameCounter} game.");
+                    Console.WriteLine("You win!");
+                    scorePoints += 3;
+                    Console.WriteLine("You won 3 points!");
+                    Console.WriteLine();
+                }
+                else if ((playerMove == Rock && computerMove == Paper) ||
+                    (playerMove == Paper && computerMove == Scissors) ||
+                    (playerMove == Scissors && computerMove == Rock))
+                {
+                    gameCounter++;
+                    Console.WriteLine($"This is your {gameCounter} game.");
+                    Console.WriteLine("You lose!");
+                    scorePoints += 0;
+                    Console.WriteLine("You won 0 points!");
+                    Console.WriteLine();
+                }
+                else
+                {
+                    gameCounter++;
+                    Console.WriteLine($"This is your {gameCounter} game.");
+                    Console.WriteLine("This game was a draw!");
+                    scorePoints += 1;
+                    Console.WriteLine($"You won 1 point!");
+                    Console.WriteLine();
+                }
             }
-            else if ((playerMove == Rock && computerMove == Paper) ||
-                (playerMove == Paper && computerMove == Scissors) ||
-                (playerMove == Scissors && computerMove == Rock))
-            {
-                Console.WriteLine("You lose!");
-            }
-            else
-            {
-                Console.WriteLine("This game was a draw!");
-            }
+            Console.WriteLine($"Your score is {scorePoints} points!");
         }
     }
 }
